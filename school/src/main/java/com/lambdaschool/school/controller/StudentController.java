@@ -18,8 +18,8 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController
 {
-    @Autowired
-    private StudentService studentService;
+//    @Autowired
+//    private StudentService studentService;
 
     // Please note there is no way to add students to course yet!
 
