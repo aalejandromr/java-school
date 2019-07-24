@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@EnableWebMvc //Overwriting some of the automatic responses
+//@EnableWebMvc //Overwriting some of the automatic responses
 @EnableJpaAuditing
 @SpringBootApplication
 public class SchoolApplication

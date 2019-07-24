@@ -1,8 +1,10 @@
 package com.lambdaschool.school.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +13,14 @@ import java.util.List;
 @Table(name = "student")
 public class Student
 {
+    @ApiModelProperty(name = "Student id", value = "primary key for students", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long studid;
 
+    @Size(min = 2, message = "Name has to have at least 2 characters")
     private String studname;
+
 
     @ManyToMany
     @JoinTable(name = "studcourses",

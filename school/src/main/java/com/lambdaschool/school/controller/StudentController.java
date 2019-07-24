@@ -1,7 +1,12 @@
 package com.lambdaschool.school.controller;
 
+import com.lambdaschool.school.model.ErrorDetail;
 import com.lambdaschool.school.model.Student;
 import com.lambdaschool.school.service.StudentService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +36,26 @@ public class StudentController {
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Retrieves a student associated with its id", response = Student.class)
+    @ApiResponses( value = {
+            @ApiResponse(code = 201, message = "Student Found"),
+            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)
+    })
     @GetMapping(value = "/Student/{StudentId}", produces = {"application/json"})
-    public ResponseEntity<?> getStudentById(@PathVariable Long StudentId) {
+    public ResponseEntity<?> getStudentById(@ApiParam(value = "Student id", required = true, example = "1") @PathVariable Long StudentId) {
         logger.trace("/students/Student has been accessed");
         Student r = studentService.findStudentById(StudentId);
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
 
+    @ApiOperation(value = "Retrieves a student associated with its name", response = Student.class)
+    @ApiResponses( value = {
+            @ApiResponse(code = 201, message = "Student Found"),
+            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)
+    })
     @GetMapping(value = "/student/namelike/{name}", produces = {"application/json"})
-    public ResponseEntity<?> getStudentByNameContaining(@PathVariable String name) {
+    public ResponseEntity<?> getStudentByNameContaining(@ApiParam(value = "Student name", required = true, example = "Alejandro") @PathVariable String name) {
         List<Student> myStudents = studentService.findStudentByNameLike(name);
         return new ResponseEntity<>(myStudents, HttpStatus.OK);
     }
