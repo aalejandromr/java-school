@@ -2,6 +2,8 @@ package com.lambdaschool.school.service;
 
 import com.lambdaschool.school.SchoolApplication;
 import com.lambdaschool.school.exceptions.ResourceNotFoundException;
+import com.lambdaschool.school.model.Course;
+import com.lambdaschool.school.model.Instructor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -47,5 +49,15 @@ public class CourseServiceImplTest {
     public void deleteFound() {
         courseService.delete(1);
         assertEquals(5, courseService.findAll().size());
+    }
+
+    @Test
+    public void addCourse() {
+        Course course = new Course("Test Course");
+        Instructor i1 = new Instructor("Sally");
+        i1.setInstructid(1);
+        course.setInstructor(i1);
+        courseService.save(course);
+        assertEquals(7,courseService.findAll().size());
     }
 }
