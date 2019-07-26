@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 
 @Service(value = "courseService")
@@ -22,6 +24,23 @@ public class CourseServiceImpl implements CourseService
         ArrayList<Course> list = new ArrayList<>();
         courserepos.findAll(p).iterator().forEachRemaining(list::add);
         return list;
+    }
+
+    @Override
+    public Course findById(long id) throws ResourceNotFoundException {
+        return courserepos.findById(id).orElseThrow(() -> new ResourceNotFoundException(Long.toString(id)));
+    }
+
+    @Override
+    public ArrayList<Course> findAll() {
+        ArrayList<Course> list = new ArrayList<>();
+        courserepos.findAll().iterator().forEachRemaining(list::add);
+        return list;
+    }
+
+    @Override
+    public void save(Course course) {
+
     }
 
     @Override
